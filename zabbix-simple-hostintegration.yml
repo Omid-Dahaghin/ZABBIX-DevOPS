@@ -1,0 +1,35 @@
+#imple Ansible playbook.yml
+-
+ name: play1
+ hosts: server1
+ tasks:
+  - name: Create a new host or update an existing host's info
+    local_action:
+      module: zabbix_host
+      server_url: http://188.121.122.130/
+      login_user: Admin
+      login_password: zabbix
+      host_name: Ansiblehost
+      visible_name: Ansiblehost
+      description: My ExampleHost Description
+      host_groups:
+        - Zabbix servers
+      link_templates:
+        - Linux SNMP
+      status: enabled
+      state: present
+      inventory_mode: disabled
+      ipmi_authtype: -1
+      ipmi_privilege: 2
+      interfaces:
+        - type: 2
+          main: 1
+          useip: 1
+          ip: 127.0.0.1
+          dns: ""
+          port: 161
+          details:
+            version: 2
+            bulk: 1
+            community: private
+      proxy: Zabbix proxy

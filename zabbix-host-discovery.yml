@@ -1,0 +1,22 @@
+#imple Ansible playbook.yml
+-
+ name: play1
+ hosts: server1
+ tasks:
+  - name: Create discovery rule with SNMPV2
+    community.zabbix.zabbix_discovery_rule:
+      server_url: http://188.121.122.130/
+      login_user: Admin
+      login_password: zabbix
+      name: SNMP_discovery
+      state: present
+      iprange: 188.121.122.203,188.121.122.130
+      dchecks:
+        - type: SNMPv2
+          snmp_community: private
+          ports: "161"
+          key: "iso.3.6.1.2.1.1.1.0"
+          host_source: "DNS"
+          name_source: "DNS"
+      proxy: Zabbix proxy
+      delay: '1m'

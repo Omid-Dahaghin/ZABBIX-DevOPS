@@ -1,0 +1,26 @@
+#imple Ansible playbook.yml
+- 
+ name: play-host-action
+ hosts: server1
+ tasks:
+  - name: Deploy discovery action
+    community.zabbix.zabbix_action:
+      server_url: http://188.121.122.130/
+      login_user: Admin
+      login_password: zabbix
+      name: SNMP Servers recovery
+      event_source: 'discovery'
+      esc_period: 1h
+      state: absent
+
+- 
+ name: play2
+ hosts: server1
+ tasks:
+  - name: Create discovery rule with SNMPV2
+    community.zabbix.zabbix_discovery_rule:
+      server_url: http://188.121.122.130/
+      login_user: Admin
+      login_password: zabbix
+      name: SNMP_discovery
+      state: absent
