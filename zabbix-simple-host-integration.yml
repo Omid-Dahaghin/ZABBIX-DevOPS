@@ -9,8 +9,8 @@
       server_url: http://188.121.122.130/
       login_user: Admin
       login_password: zabbix
-      host_name: Ansiblehost
-      visible_name: Ansiblehost
+      host_name: Simple Host Integration
+      visible_name: Simple Host Integration
       description: My ExampleHost Description
       host_groups:
         - Zabbix servers
@@ -25,7 +25,7 @@
         - type: 2
           main: 1
           useip: 1
-          ip: 127.0.0.1
+          ip: 188.121.122.203
           dns: ""
           port: 161
           details:
