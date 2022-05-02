@@ -19,4 +19,4 @@
           host_source: "DNS"
           name_source: "DNS"
       proxy: Zabbix proxy
-      delay: '1h'
+      delay: '1m'
