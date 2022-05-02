@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    stages{
+        stage('SCM Checkout'){
+            steps{
+                git branch: 'main', url: 'https://github.com/Omid-Dahaghin/ZABBIX-DevOPS'
+            }
+        }
+        stage('Execute SIMPLE SNMPv2 HOST'){
+            steps{
+              ansiblePlaybook credentialsId: 'jenkins', disableHostKeyChecking: true, installation: 'ZABBIX_Ansible', inventory: 'dev.inv', playbook: 'zabbix-simple-hostintegration.yml'
+            }
+        }
+        stage('ZABBIX Package Requirement'){
+            steps{
+              sh 'ansible-galaxy collection install community.zabbix'
+            }
+        }
+        stage('Execute Host discovery With SNMPV2'){
+            steps{
+              ansiblePlaybook credentialsId: 'jenkins', disableHostKeyChecking: true, installation: 'ZABBIX_Ansible', inventory: 'dev.inv', playbook: 'zabbix-host-discovery.yml'
+            }
+        }
+        stage('Execute Host Action discovery'){
+            steps{
+              ansiblePlaybook credentialsId: 'jenkins', disableHostKeyChecking: true, installation: 'ZABBIX_Ansible', inventory: 'dev.inv', playbook: 'zabbix-host-action-discovery.yml'
+            }
+        }
+    }
+}
