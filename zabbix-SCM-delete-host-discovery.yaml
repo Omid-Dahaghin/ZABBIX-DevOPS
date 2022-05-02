@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('SCM Checkout'){
+            steps{
+                git branch: 'main', url: 'https://github.com/Omid-Dahaghin/ZABBIX-DevOPS'
+            }
+        }
+        stage('ZABBIX Package Requirement'){
+            steps{
+              sh 'ansible-galaxy collection install community.zabbix'
+            }
+        }
+        stage('Delete Discoveries'){
+            steps{
+              ansiblePlaybook credentialsId: 'jenkins', disableHostKeyChecking: true, installation: 'ZABBIX_Ansible', inventory: 'dev.inv', playbook: 'zabbix-delete.yaml'
+            }
+        }
+    }
+}
